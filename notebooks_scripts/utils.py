@@ -2,40 +2,12 @@
 """
 utility functions
 """
-import numpy as np
-import pandas as pd
-import warnings
-import tensorflow as tf
-import keras.backend as K
-from keras.layers import Input
-from keras import layers
-from keras.layers import Dense
-from keras.layers import Dropout
-from keras.layers import Activation
-from keras.layers import Flatten
-from keras.layers import Conv2D
-from keras.layers import MaxPooling2D
-from keras.layers import GlobalMaxPooling2D
-from keras.layers import ZeroPadding2D
-from keras.layers import AveragePooling2D
-from keras.layers import GlobalAveragePooling2D
-from keras.layers import BatchNormalization
-from keras.models import Model
 from keras.optimizers import SGD, RMSprop, Adam
-from keras.preprocessing import image
-from keras.utils import layer_utils
 from keras.utils import multi_gpu_model
-from keras.utils.data_utils import get_file
-from keras.callbacks import ModelCheckpoint
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
-from keras.applications.imagenet_utils import decode_predictions
-from keras.applications.imagenet_utils import preprocess_input
-from keras.applications.imagenet_utils import _obtain_input_shape
-from keras.engine.topology import get_source_inputs
 
 from inception_resnet_v2 import InceptionResNetV2
-
-K.set_image_dim_ordering('tf')
+from resnet50 import ResNet50
+from resnet152 import ResNet152
 
 train_dir = "/mnt/safe01/data/train/"
 validation_dir = "/mnt/safe01/data/validation/"

@@ -11,7 +11,6 @@ from resnet152 import ResNet152
 
 train_dir = "/mnt/safe01/data/train/"
 validation_dir = "/mnt/safe01/data/validation/"
-test_dir = "/mnt/safe01/data/tests/"
 
 def train_validation_generator(batch_size, img_height_width):
     """
@@ -57,7 +56,9 @@ def load_pretrained_weights(network_name, input_shape):
 # freeze layers
 def freeze_layers(list_of_names, model, trainable_layers_names, freeze_proportion=0):
     """
-    If list_of_names is True then we can specify which layers to be freezed by trainable_layers_names. Another way is to specify the number of layers by freeze_proportion eg freeze_proportion=0.5 means half of the top layers are freezed when training.
+    If list_of_names is True then we can specify which layers to be freezed by trainable_layers_names. 
+    Another way is to specify the number of layers by freeze_proportion 
+    eg freeze_proportion=0.5 means half of the top layers are frozen when training.
     """
     if list_of_names == True:
         trainable_layers = [model.get_layer(layer_name)

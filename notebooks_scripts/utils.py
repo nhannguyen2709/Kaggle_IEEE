@@ -17,7 +17,7 @@ validation_dir = "/mnt/safe01/data/validation/"
 
 def train_validation_generator(batch_size, img_height_width):
     """
-    Return train and validation data generator.
+    Return the train and validation data generators.
     """
     # augmentation configuration for training
     train_datagen = ImageDataGenerator(
@@ -73,21 +73,24 @@ def train_on_multi_gpus(parallel_model, train_generator, validation_generator,
                         optimizer, learning_rate, epochs):
     """
     Compile the parallel model with different optimizers and hyperparameters settings,
-    tracking accuracy (non-weighted) metric on training and validation sets.
+    tracking both accuracy and weighted_accuracy metrics on training and validation sets.
     Wrap the fit_generator() function of the parallel model inside and return the History object.
     """
     if optimizer == 'sgd':
         parallel_model.compile(loss='categorical_crossentropy',
                                optimizer=SGD(lr=learning_rate,
                                              decay=learning_rate / epochs),
+                               metrics=['accuracy'],
                                weighted_metrics=['accuracy'])
     elif optimizer == 'adam':
         parallel_model.compile(loss='categorical_crossentropy',
                                optimizer=Adam(lr=learning_rate),
+                               metrics=['accuracy'],
                                weighted_metrics=['accuracy'])
     elif optimizer == 'rmsprop':
         parallel_model.compile(loss='categorical_crossentropy',
                                optimizer=RMSprop(lr=learning_rate, decay=0.9),
+                               metrics=['accuracy'],
                                weighted_metrics=['accuracy'])
     history = parallel_model.fit_generator(
         train_generator,

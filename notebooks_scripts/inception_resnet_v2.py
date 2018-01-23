@@ -8,6 +8,10 @@ https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_re
 Pre-trained ImageNet weights are also converted from TF-slim, which can be found in:
 https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models
 
+The last Dense layer containing 1000 hidden units suitable for ImageNet task has been replaced with a new MLP.
+The MLP's architecture is as followed:
+Concatenate(GlobalAvgPool, GlobalMaxPool) -> Dense(1024) -> BatchNormalization() -> Dropout(0.5) -> Dense(1024) -> BatchNormalization()
+-> Dropout(0.5) -> Dense(10)
 # Reference
 - [Inception-v4, Inception-ResNet and the Impact of
    Residual Connections on Learning](https://arxiv.org/abs/1602.07261)

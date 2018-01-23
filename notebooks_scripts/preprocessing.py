@@ -225,9 +225,14 @@ def center_crop(img, center_crop_size):
                       centerh - halfh:centerh + halfh, :]
     return cropped_img
 
+
 def write_imgs_to_train_and_validation_dirs(input_path=processed_imgs_dir,
                                             output_path1=train_dir,
                                             output_path2=validation_dir):
+    """
+    Randomly split patched processed images into training and validation sets then copy them to 
+    the relevant directories.
+    """
     splitting = train_test_split_post_augmenting()
     for i in range(len(categories)):
         for img_name in splitting[categories[i]]["train"]:

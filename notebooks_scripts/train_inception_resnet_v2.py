@@ -23,7 +23,7 @@ train_generator, validation_generator = train_validation_generator(batch_size=50
 inceptionresnetv2 = load_pretrained_weights('InceptionResNetV2', input_shape=(299, 299, 3))
 
 # overwrite ImageNet weights with weights obtained from last training epoch
-inceptionresnetv2.load_weights(weights_path + 'multigpu0.hdf5')
+inceptionresnetv2.load_weights(weights_path + 'multigpu7.hdf5')
 
 # fine-tune
 freeze_layers(list_of_names=False,
@@ -31,8 +31,8 @@ freeze_layers(list_of_names=False,
               model=inceptionresnetv2,
               freeze_proportion=0.9)
 parallel_model = multi_gpu_model(model=inceptionresnetv2, gpus=4)
-multi_stages_epochs = [5, 5, 10, 10, 10, 20, 20, 20]
-multi_stages_learning_rate = [1e-3, 1e-3, 1e-3, 1e-3, 1e-3, 1e-4, 1e-4, 1e-5]
+multi_stages_epochs = [10, 10, 10, 20, 20, 20, 20, 20]
+multi_stages_learning_rate = [1e-3, 1e-3, 1e-3, 1e-3, 1e-3, 1e-4, 1e-4, 1e-4]
 for i, stage_epochs in enumerate(multi_stages_epochs):
     history = train_on_multi_gpus(parallel_model=parallel_model,
                                   train_generator=train_generator,
